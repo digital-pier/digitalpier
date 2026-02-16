@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Pier | Custom Websites, Apps & AI Integration</title>
+    <meta
+      name="description"
+      content="Digital Pier builds custom websites and web apps, AI integrations and chatbots, and modernizes existing websites."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="brand" href="#top">
+          <span class="brand-main">Digital</span>
+          <span class="brand-main">Pier</span>
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navLinks"
+          aria-label="Open navigation menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <div class="hero-copy">
+          <p class="eyebrow">DigitalPier.dev</p>
+          <h1 class="hero-title">
+            <span>Build Faster</span>
+            <span>Modernize Smarter</span>
+            <span>Deploy With Confidence</span>
+          </h1>
+          <p>
+            We craft custom websites, web apps, and AI-powered experiences for
+            businesses that need practical results, not templates.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#contact">Start Your Project</a>
+            <a class="btn btn-secondary" href="#services">View Services</a>
+          </div>
+        </div>
+
+        <div class="hero-visual-wrap">
+          <div class="hero-ring">
+            <img
+              class="hero-disc-image"
+              src="./assets/pier-interior.png"
+              alt="Sunset horizon with digital pier path"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section services" id="services">
+        <h2>What Digital Pier Delivers</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Custom Websites & Web Apps</h3>
+            <p>
+              High-performance builds tailored to your goals, with clean UX,
+              mobile-first layouts, and scalable architecture.
+            </p>
+          </article>
+          <article class="card">
+            <h3>AI Integration & Chatbots</h3>
+            <p>
+              We embed practical AI workflows into your site or app, including
+              support assistants, lead qualification bots, and smart automation.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Website Modernization</h3>
+            <p>
+              Refresh outdated platforms, improve loading speed, tighten
+              security, and migrate legacy pages to modern stacks.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section process" id="process">
+        <h2>Simple, Transparent Process</h2>
+        <div class="steps">
+          <div class="step">
+            <span>01</span>
+            <h3>Discovery</h3>
+            <p>We define goals, scope, and what success looks like.</p>
+          </div>
+          <div class="step">
+            <span>02</span>
+            <h3>Build</h3>
+            <p>We design and develop in clear milestones with feedback loops.</p>
+          </div>
+          <div class="step">
+            <span>03</span>
+            <h3>Launch</h3>
+            <p>
+              We deploy, optimize, and hand off with support options if needed.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <h2>Let’s Build Your Next Digital Project</h2>
+        <p>
+          Ready to discuss your website, app, or modernization roadmap? Reach
+          out and we’ll map next steps.
+        </p>
+        <form class="contact-form" id="contactForm" novalidate>
+          <label>
+            Name *
+            <input type="text" name="name" required maxlength="80" />
+          </label>
+          <label>
+            Email *
+            <input type="email" name="email" required maxlength="120" />
+          </label>
+          <label>
+            Phone
+            <input type="tel" name="phone" maxlength="40" />
+          </label>
+          <label>
+            Service Needed *
+            <select name="service" required>
+              <option value="">Select a service</option>
+              <option value="Custom Website / Web App">
+                Custom Website / Web App
+              </option>
+              <option value="AI Integration / Chatbot">
+                AI Integration / Chatbot
+              </option>
+              <option value="Website Modernization">
+                Website Modernization
+              </option>
+            </select>
+          </label>
+          <label class="full">
+            Project Details *
+            <textarea
+              name="message"
+              rows="5"
+              required
+              maxlength="2000"
+              placeholder="Tell us about your goals, current website/app, and timeline."
+            ></textarea>
+          </label>
+          <label class="form-honeypot" aria-hidden="true">
+            Company Website
+            <input type="text" name="companyWebsite" tabindex="-1" />
+          </label>
+          <div class="full form-row">
+            <button class="btn btn-primary" type="submit">Send Message</button>
+            <a class="btn btn-secondary" href="mailto:hello@digitalpier.dev"
+              >Email Directly</a
+            >
+          </div>
+          <p id="formStatus" class="form-status full" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>
