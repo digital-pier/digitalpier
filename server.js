@@ -18,6 +18,21 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+const REQUIRED_SMTP_VARS = [
+  "SMTP_HOST",
+  "SMTP_PORT",
+  "SMTP_USER",
+  "SMTP_PASS",
+  "CONTACT_TO_EMAIL",
+  "CONTACT_FROM_EMAIL"
+];
+
+// Returns the list of SMTP/contact env vars that are not set.
+// Used only for logging and request-time guarding — never throws.
+function missingSmtpConfig() {
+  return REQUIRED_SMTP_VARS.filter((key) => !process.env[key]);
+}
+
 function isRateLimited(ip) {
   const now = Date.now();
   const history = recentRequests.get(ip) || [];
@@ -38,17 +53,6 @@ async function sendContactEmail({ name, email, phone, service, message }) {
     CONTACT_TO_EMAIL,
     CONTACT_FROM_EMAIL
   } = process.env;
-
-  if (
-    !SMTP_HOST ||
-    !SMTP_PORT ||
-    !SMTP_USER ||
-    !SMTP_PASS ||
-    !CONTACT_TO_EMAIL ||
-    !CONTACT_FROM_EMAIL
-  ) {
-    throw new Error("Missing SMTP or contact email environment variables.");
-  }
 
   const transporter = nodemailer.createTransport({
     host: SMTP_HOST,
@@ -114,6 +118,17 @@ app.post("/api/contact", async (req, res) => {
     });
   }
 
+  const missing = missingSmtpConfig();
+  if (missing.length) {
+    console.warn(
+      `Contact form not sent: SMTP not configured (missing ${missing.join(", ")}).`
+    );
+    return res.status(500).json({
+      ok: false,
+      message: "Email is temporarily unavailable. Please email rick.lowe@digitalpier.dev."
+    });
+  }
+
   try {
     await sendContactEmail({ name, email, phone, service, message });
     return res.status(200).json({
@@ -133,6 +148,19 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+const missingSmtpAtBoot = missingSmtpConfig();
+if (missingSmtpAtBoot.length) {
+  console.warn(
+    `[startup] SMTP not fully configured (missing ${missingSmtpAtBoot.join(", ")}). ` +
+      "The site will still start and serve pages; the contact form will return an error until these are set."
+  );
+}
+
 app.listen(PORT, () => {
   console.log(`Digital Pier site running on port ${PORT}`);
+  console.log(
+    missingSmtpConfig().length
+      ? "[startup] Contact form: DISABLED (SMTP env vars missing)"
+      : "[startup] Contact form: ENABLED"
+  );
 });
