@@ -124,7 +124,7 @@ app.post("/api/contact", async (req, res) => {
     console.error("Contact form send failed:", error.message);
     return res.status(500).json({
       ok: false,
-      message: "Unable to send right now. Please email hello@digitalpier.dev."
+      message: "Unable to send right now. Please email rick.lowe@digitalpier.dev."
     });
   }
 });
